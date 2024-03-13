@@ -1,0 +1,30 @@
+﻿@model ElevatorWebApp.Models.Elevator
+@using ElevatorWebApp.Models
+
+<h2>Elevator Control Panel</h2>
+
+<p>Current Floor: @Model.CurrentFloor</p>
+
+<div>
+    <form asp-action="RequestElevator" method="post">
+        <button name="floor" value="1" type="submit">Call Elevator to 1st Floor</button>
+    </form>
+</div>
+<div>
+    @for (int i = 2; i <= 4; i++)
+    {
+        <form asp-action="RequestElevator" method="post">
+            <input type="hidden" name="floor" value="@i" />
+            <button name="direction" value="Up" type="submit" @(Model.CurrentFloor >= i ? "disabled" : "")>Call Up @i th Floor</button>
+            <button name="direction" value="Down" type="submit" @(Model.CurrentFloor <= i ? "disabled" : "")>Call Down @i th Floor</button>
+        </form>
+    }
+</div>
+<div>
+    <form asp-action="RequestElevator" method="post">
+        <button name="floor" value="5" type="submit">Call Elevator to 5th Floor</button>
+    </form>
+</div>
+<form asp-action="MoveElevator" method="post">
+    <button type="submit">Move Elevator</button>
+</form>
